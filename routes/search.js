@@ -18,7 +18,7 @@ router.get('/searching',ensureAuthenticated, function(req, response){
     var profession = req.user.profession;
     //console.log(page);
     console.log(query);
-   
+
     if(query!=undefined){
       var oldString = query.split(' ')
       var newStemQuery = stopword.removeStopwords(oldString);
@@ -48,7 +48,7 @@ router.get('/searching',ensureAuthenticated, function(req, response){
       https.get(url1, function(res1){
         var body1 = '';
         var words = [];
-    
+
         res1.on('data', function(chunk){
             body1 += chunk;
 
@@ -57,7 +57,7 @@ router.get('/searching',ensureAuthenticated, function(req, response){
 
 
         });
-    
+
         res1.on('end', function(){
             var suggres = JSON.parse(body1);
             if(suggres.length>0){
@@ -84,11 +84,11 @@ router.get('/searching',ensureAuthenticated, function(req, response){
             }
             https.get(url, function(res){
                 var body = '';
-        
+
                 res.on('data', function(chunk){
                     body += chunk;
                 });
-        
+
                 res.on('end', function(){
                     var googleres = JSON.parse(body);
                     var resquery=query;
@@ -162,9 +162,13 @@ router.get('/searching',ensureAuthenticated, function(req, response){
                       tfidf.addDocument(jsonArr[i]);
                     }
                     var words2=[];
+                    for(var i=0;i<words.length;i++){
+                      words2.push(words[i]);
+                    }
                     for(var i=0;i<wordQuery.length;i++){
                       words2.push(wordQuery[i]);
                     }
+                    console.log(words2);
                     var tfidfValue = [];
                     tfidf.tfidfs(words2, function(i, measure) {
                       tfidfValue.push(measure);
@@ -217,9 +221,9 @@ router.get('/searching',ensureAuthenticated, function(req, response){
           dbresults: ""
         });
       }
-          
+
 });
-      
+
 
 router.get('/save', ensureAuthenticated, function(req,res){
     var title = req.query.title;
@@ -308,5 +312,5 @@ function ensureAuthenticated(req ,res ,next){
     res.redirect("/users/login");
   }
 }
-  
+
 module.exports = router

@@ -1,4 +1,4 @@
 module.exports = {
-  database:'mongodb://localhost:27017/myDb',
+  database: 'mongodb://tejas:tejas123@ds245240.mlab.com:45240/pwsapp',
   secret: 'Hii'
 }

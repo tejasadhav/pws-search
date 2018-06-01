@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 let user = require('../models/user');
 
 const weblogSchema = mongoose.Schema({
-    query: String,
+    query:String,
     title: String,
     url: String,
-    snippet: String,
+    snippet: {type:String, text:true },
     count: { type: Number, default: 1},
     updated: { type: Date, default: Date.now },
     user: {type: mongoose.Schema.Types.ObjectId, ref: user}
