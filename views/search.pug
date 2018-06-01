@@ -1,0 +1,63 @@
+extends layout
+
+block content
+    form#search-id(method='GET', action='/search/searching')
+        .input-group.col-md-4
+            input#search-input.form-control.py-2(name='q',type='search', placeholder='search')
+            span.input-group-append
+            button.btn.btn-outline-secondary(type='button')
+                i.fa.fa-search
+    br
+    if query
+        .container-fluid
+            hr
+            p.text-success Suggested Searches:
+            .btn-toolbar(role='toolbar', aria-label='Toolbar with button groups')
+                each result in words
+                    .btn-group.mr-2(role='group', aria-label='First group')
+                        a.btn.btn-outline-success.btn-sm(href='/search/searching?q='+sendQuery+"+"+result, role='button')= sendQuery+" "+result
+            hr
+            br 
+            .row
+                #left.col-sm-7
+                    ul.list-group
+                            li.list-group-item.active Google Results
+                            each result, i in googleresult
+                                li.list-group-item
+                                    div.save-link
+                                        a(href=result.link, target='_blank')  !{result.htmlTitle}
+                                        p.cite
+                                            cite !{result.htmlFormattedUrl}
+                                        p.snippet !{result.htmlSnippet}
+
+                #right.col-sm-5
+                    ul.list-group
+                        li.list-group-item.active Recommended Results
+                            each val in [0,1,2,3,4,5]
+                                li.list-group-item.list-group-item-success
+                                    div.save-link
+                                        a(href=newresult[recoResults[val]].url, target='_blank')  !{newresult[recoResults[val]].title}
+                                        p.cite
+                                            cite !{newresult[recoResults[val]].url}
+                                        p.snippet !{newresult[recoResults[val]].snippet}
+                    br
+                    ul.list-group
+                        li.list-group-item.active Top Searched Links
+                        each result, i in dbresults
+                            li.list-group-item.list-group-item-secondary
+                                div
+                                    a(href=result.url, target='_blank')  !{result.title}
+                                div
+                                    p.cite !{result.url}
+    
+
+            br
+            nav(aria-label='Page navigation example')
+                ul.pagination.justify-content-center
+                    li.page-item
+                        a.page-link(href='/search/searching?q='+query+'&page=1') 1
+                    li.page-item
+                        a.page-link(href='/search/searching?q='+query+'&page=2') 2    
+                    li.page-item
+                        a.page-link(href='/search/searching?q='+query+'&page=3') 3
+                                                                        

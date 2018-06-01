@@ -1,0 +1,44 @@
+doctype html
+html 
+  head
+    title PWS-Search
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css")
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+  body
+    nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+      a.navbar-brand(href='#') Personalized Web Search
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarCollapse.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/')
+              | Home 
+              span.sr-only (current)
+          li.nav-item.active
+            a.nav-link(href='/search/searching')
+              | Search
+              span.sr-only (current)
+          if !user
+            li.nav-item
+              a.nav-link(href='/users/login') Login 
+            li.nav-item
+              a.nav-link(href='/users/register') Register
+          else
+            ul.navbar-nav.m1-auto
+              li.nav-item
+              a.nav-link(href='/users/logout') Logout #{username}
+    br
+    .container
+      != messages('message', locals)
+      if errors
+        each error, i in errors
+          div(class="alert alert-danger") #{error.msg}
+    block content
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+    script(src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js")
+    script(src='/js/bootstrap.js')
+    script(src='/js/main.js')
+    
