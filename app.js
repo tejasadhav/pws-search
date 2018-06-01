@@ -78,12 +78,12 @@ app.get('/',function(req,res){
   });
 });
 
-const port = proces.env.PORT || 8000
+const port = proces.env.PORT || 8000 ;
 let users = require('./routes/users');
 let search = require('./routes/search');
 app.use('/users',users);
 app.use('/search',search);
 
-app.listen(3000,function(){
+app.listen(port,function(){
   console.log('Server started on port 3000....');
 });
