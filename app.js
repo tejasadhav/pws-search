@@ -78,6 +78,7 @@ app.get('/',function(req,res){
   });
 });
 
+const port = proces.env.PORT || 8000
 let users = require('./routes/users');
 let search = require('./routes/search');
 app.use('/users',users);
